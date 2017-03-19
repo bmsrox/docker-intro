@@ -1,0 +1,254 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/sky.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal default center">
+			<div class="slides">
+				<section>
+					<h2>Introdução ao</h2>
+					<img data-src="images/logo.svg" alt="" style="border: none; width: 70%; box-shadow: none; background: none;">
+					<p>
+						<a href="https://docs.docker.com/" target="_blank">docs.docker.com</a>
+					</p>
+				</section>
+
+				<section>
+					<h2>Bruno Marinho dos Santos</h2>
+					<p>Desenvolvedor PHP na FTD</p>
+					<p>
+						<ul>
+							<li>telegram: @bsdev</li>
+							<li>linkedin: /in/bsdev</li>
+						</ul>
+					</p>
+				</section>
+
+				<section id="fragments">
+					<h2>O que veremos?</h2>
+						<p>O que é o Docker?</p>
+						<p>Principais Conceitos</p>
+						<p>VMs x Containers</p>
+						<p>Vantagens</p>
+						<p>Instalação</p>
+						<p>Comandos básicos de Docker</p>
+						<p>Criando imagens com Dockerfile</p>
+						<p>Ferramentas Avançadas</p>
+				</section>
+
+				<section class="present">
+					<h2>O que é o docker?</h2>
+					<p>
+						Docker é uma plataforma open-source escrita em GO cuja finalidade é criar ambientes isolados (Containers) para aplicações e serviços.
+						Seu modelo de virtualização é diferente do que tradicionalmente conhecemos, pois está no nível do sistema operacional.
+					</p>
+				</section>
+
+				<section>
+
+					<h3>O que é uma Imagem?</h3>
+					<p>
+Um dos conceitos mais importantes do Docker são as imagens, que podemos definir como: snapshots de um aplicação que podem ser instanciados, tornando-se assim containers.
+					</p>
+
+					<br>
+
+					<h3>O que é um Container?</h3>
+					<p>
+						Nada mais são que processos rodando em um kernel compartilhado com seu host.
+						O benefício do container ser um processo é que esse processo consome os recursos nativos do hardware sem virtualização. O processo é virtualizado, mas o processamento não é virtualizado.
+					</p>
+				</section>
+
+				<section>
+					<h2>VMs x Containers</h2>
+					<img src="images/containers-vs-vms.png" alt="" style="border: none; width: 70%; box-shadow: none; background: none;">
+				</section>
+
+
+				<section>
+					<h2>Vantagens</h2>
+					<ul>
+						<li>Performance</li>
+						<li>Portabilidade</li>
+						<li>Escalabilidade</li>
+						<li>Acabar com a história do “Na minha máquina funcionava” (Caso rode em produção também)</li>
+						<li>Versionar a configuração.</li>
+						<li>Possibilidade de replicar o ambiente de desenvolvimento em produção de forma automática e imune a erros.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Instalação</h2>
+
+					<p>
+							Atualmente o Docker roda apenas em maquinas com Linux 64 bits com kernel 3.8 ou maior, consequentemente seus containers terão que ser um linux 64 bits.
+					</p>
+
+					<p>
+						Para Windows e MacOS há algumas particularidades.
+					</p>
+
+					<p>
+						Para realizar a instalação do Docker basta seguir os procedimentos na documentação:
+						<a href="https://docs.docker.com/engine/installation/">https://docs.docker.com/engine/installation/</a>
+					</p>
+
+					<h2>EASY!!!</h2>
+
+				</section>
+
+				<section>
+					<p>
+						Para subir um container precisamos de uma imagem base. Para se obter uma imagem basta acessa o <a href="https://hub.docker.com/">https://hub.docker.com</a> ou <a href="https://store.docker.com/">https://store.docker.com</a>
+					</p>
+				</section>
+
+				<section>
+					<h2>Comandos básicos de Docker</h2>
+
+					<p>Baixar uma imagem</p>
+					<pre><code>docker image pull image_name</code></pre>
+					<p>* Pode-se utilizar dois pontos para definir uma versão específica da imagem.</p>
+					<pre><code>docker image pull image_name:version</code></pre>
+					<p>Listar imagens</p>
+					<pre><code>docker image ls</code></pre>
+					<p>Apagar imagens</p>
+					<pre><code>docker image rmi image_name</code></pre>
+				</section>
+
+				<section>
+					<p>Criar e iniciar um container, executar um comando</p>
+					<pre><code>docker container run -it --name container_name image_name command</code></pre>
+					<p>Exem.:</p>
+					<pre><code> docker container run -it --name my-container node bash </code></pre>
+					<p>Criar e iniciar um container, executar comando e destruir o container</p>
+					<pre><code> docker container run --rm -it --name my-container node bash </code></pre>
+<p>* É recomendável utilizar o parâmetro &#8212;<strong>rm</strong> , desta forma o container é removido automaticamente quando você sai dele, evitando ter containers zumbis.</p>
+				</section>
+
+				<section>
+
+					<p>Listar containers</p>
+					<p>Para listar os containers em execução</p>
+					<pre><code> docker container ls </code></pre>
+					<p>No caso de precisar ver todos os containers existentes só adicionar -a</p>
+					<pre><code> docker container ls -a </code></pre>
+					<p>Apagar um container</p>
+					<pre><code> docker container rm container_name </code></pre>
+				</section>
+
+				<section>
+					<p>Volumes</p>
+					<pre><code> docker container run -it --name my-container -v /home/exemple:/data node bash </code></pre>
+					<p>Expondo Portas</p>
+					<pre><code> docker container run -it --name my-container -p 8080:8080 node bash </code></pre>
+					<p>Obter o IP de um container</p>
+					<pre><code> docker container inspect container_name </code></pre>
+				</section>
+
+				<section>
+					<h2>Criando imagens com Dockerfile</h2>
+
+					<pre><code style="height:600px">FROM ubuntu:16.04
+MAINTAINER bsdev bmsrox@gmail.com
+RUN apt-get update && apt-get -y install apache2 && apt-get clean
+
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+ENV APACHE_RUN_DIR /var/run/apache2
+ENV APACHE_LOCK_DIR /var/run/
+ENV APACHE_PID_FILE /var/run/apache2.pid
+ENV APACHE_LOG_DIR /var/log/apache2
+
+EXPOSE 80
+WORKDIR /var/www/html
+ADD apache-config.conf /etc/apache2/sites-enabled/000-default.conf
+CMD ["/usr/sbin/apache2", "-D", "FOREGROUND"]
+</code></pre>
+<p>Para construir a imagem a partir de um Dockerfile é só executar o seguinte comando:</p>
+<pre><code>docker image build -t image_name .</code></pre>
+				</section>
+
+				<section>
+					<h2>Ferramentas Avançadas</h2>
+					<ul>
+				    <li><strong>Docker Compose</strong>: uma ferramenta para a definição e execução de aplicativos Docker multi-containers</li>
+				    <li><strong>Docker Swarm</strong>: ferramenta nativa de clusterização que torna um pool de hosts Docker em um único host Docker virtual</li>
+				    <li><strong>Docker Cloud</strong>: deploying de clusters e serviços para provedores de serviço cloud (AWS, DigitalOcean etc)</li>
+				  </ul>
+				</section>
+
+				<section>
+				  <h3>Quer aprender mais?</h3>
+				  <ul>
+				    <li>Documentação oficial: <a href="http://docs.docker.com/">docs.docker.com</a></li>
+				    <li>Hub: <a href="http://hub.docker.com/">hub.docker.com</a></li>
+				    <li>Cloud: <a href="http://cloud.docker.com&gt;">cloud.docker.com</a></li>
+				    <li>Github: <a href="http://github.com/dotcloud/docker">dotcloud/docker</a></li>
+				    <li>Google Group: <a href="https://groups.google.com/forum/#!forum/docker-user">docker-user</a></li>
+				    <li>Twitter: <a href="http://twitter.com/docker">@docker</a></li>
+				    <li>Encontros: <a href="http://www.docker.io/meetups">www.docker.io/meetups</a></li>
+				  </ul>
+				</section>
+
+				<section>
+					<h1>END</h1>
+				</section>
+
+			</div>
+		</div>
+
+
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+
+				transition: 'convex',
+				width: 1366,
+				height: 768,
+				margin: 0.1,
+				minScale: 0.2,
+				maxScale: 1.2,
+
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: 'c/t',
+				// Enable slide navigation via mouse wheel
+				mouseWheel: true,
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
