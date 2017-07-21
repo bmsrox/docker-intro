@@ -1,3 +1,3 @@
 FROM node:latest
-MAINTAINER bsdev <bmsrox@gmail.com>
+MAINTAINER Bruno Marinho <bmsrox@gmail.com>
 EXPOSE 80
